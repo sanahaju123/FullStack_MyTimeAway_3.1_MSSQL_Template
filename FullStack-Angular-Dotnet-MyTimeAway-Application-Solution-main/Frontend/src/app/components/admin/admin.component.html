@@ -1,0 +1,97 @@
+<h2>Leave Applications</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Employee Name</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Total Days</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Approved Section -->
+    <tr>
+      <td colspan="6">
+        <h3>Approved</h3>
+      </td>
+    </tr>
+    <tr *ngFor="let application of leaveApplications; let i = index" [ngClass]="{'Approved': application.status === 'Approved'}">
+      <ng-container *ngIf="application.status === 'Approved'">
+        <td>{{ application.id }}</td>
+        <td>{{ application.employeeName }}</td>
+        <td>{{ application.fromDate | date }}</td>
+        <td>{{ application.toDate | date }}</td>
+        <td>{{ application.totalDays }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="cancelLeave(application)">Cancel</button>
+          <span class="button-space"></span>
+          <button class="btn btn-danger" (click)="rejectLeave(application)">Reject</button>
+        </td>
+      </ng-container>
+    </tr>
+
+    <!-- Canceled Section -->
+    <tr>
+      <td colspan="6">
+        <h3>Canceled</h3>
+      </td>
+    </tr>
+    <tr *ngFor="let application of leaveApplications; let i = index" [ngClass]="{'Cancelled': application.status === 'Cancelled'}">
+      <ng-container *ngIf="application.status === 'Cancelled'">
+        <td>{{ application.id }}</td>
+        <td>{{ application.employeeName }}</td>
+        <td>{{ application.fromDate | date }}</td>
+        <td>{{ application.toDate | date }}</td>
+        <td>{{ application.totalDays }}</td>
+        <td>
+            <button class="btn btn-danger" (click)="approveLeave(application)">Approve</button>
+        </td>
+      </ng-container>
+    </tr>
+
+     <!-- Rejected Section -->
+     <tr>
+        <td colspan="6">
+          <h3>Rejected</h3>
+        </td>
+      </tr>
+      <tr *ngFor="let application of leaveApplications; let i = index" [ngClass]="{'Rejected': application.status === 'Rejected'}">
+        <ng-container *ngIf="application.status === 'Rejected'">
+          <td>{{ application.id }}</td>
+          <td>{{ application.employeeName }}</td>
+          <td>{{ application.fromDate | date }}</td>
+          <td>{{ application.toDate | date }}</td>
+          <td>{{ application.totalDays }}</td>
+          <td>
+              <button class="btn btn-danger" (click)="approveLeave(application)">Approve</button>
+          </td>
+        </ng-container>
+      </tr>
+
+    <!-- Pending Section -->
+    <tr>
+      <td colspan="6">
+        <h3>Pending</h3>
+      </td>
+    </tr>
+    <tr *ngFor="let application of leaveApplications; let i = index">
+      <ng-container *ngIf="application.status === ''">
+        <td>{{ application.id }}</td>
+        <td>{{ application.employeeName }}</td>
+        <td>{{ application.fromDate | date }}</td>
+        <td>{{ application.toDate | date }}</td>
+        <td>{{ application.totalDays }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="cancelLeave(application)">Cancel</button>
+          <span class="button-space"></span>
+          <button class="btn btn-danger" (click)="approveLeave(application)">Approve</button>
+          <span class="button-space"></span>
+          <button class="btn btn-danger" (click)="rejectLeave(application)">Reject</button>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
